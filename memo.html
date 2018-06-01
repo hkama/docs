@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>memo.html</title>
+
+</head>
+
+<body>
+
+<ul>
+<li>C をグローバルエイリアスとして設定してる。これで Mac でも Linux でも C だけで標準出力をクリップボードにコピーできるようになる</li>
+</ul>
+
+<p><code>
+if which pbcopy &gt;/dev/null 2&gt;&amp;1 ; then 
+    # Mac  
+    alias -g C='| pbcopy'
+elif which xsel &gt;/dev/null 2&gt;&amp;1 ; then 
+    # Linux
+    alias -g C='| xsel --input --clipboard'
+elif which putclip &gt;/dev/null 2&gt;&amp;1 ; then 
+    # Cygwin 
+    alias -g C='| putclip'
+fi
+</code>
+<code>
+# INPUT.txt のうち 10から15行目をクリップボードにコピーする
+% sed -n '10,15p' INPUT.txt C
+</code></p>
+
+<h3 id="xsel">xselについて</h3>
+
+<ul>
+<li><a href="http://lldev.jp/linux_c_cpp/linux_cmd/xsel.html">xsel - コマンドラインからXセレクションを操作する</a></li>
+</ul>
+
+<h3 id="emacs">emacs ハイライト</h3>
+
+<ul>
+<li><a href="http://keisanbutsuriya.hateblo.jp/entry/2015/02/01/162035">Emacsのハイライト関係の設定まとめ</a></li>
+</ul>
+
+<h3 id="emacspackage">emacs package</h3>
+
+<ul>
+<li><p>M-x list-packages でパッケージ一覧を表示させ、テーマ名を検索し、インストールしてください。</p></li>
+<li><p>load-pathの確認はemacs起動して<em>scratch</em>画面にしてload-pathと打ってC-jで出てくる</p></li>
+<li><p><a href="http://d.hatena.ne.jp/tomoya/20090215/1234692209">Emacs設定講座 その3「scratch バッファと eval(評価)</a></p></li>
+<li><p><a href="https://gist.github.com/zk-phi/9935048">setup.el で安全・爆速な init.el を書く</a></p></li>
+</ul>
+
+<h4 id="emacscolortheme">emacs color theme</h4>
+
+<ul>
+<li><a href="https://github.com/overtone/emacs-live">Emacs Live(ネオンみたいな光り方する謎のtheme)</a></li>
+<li><a href="https://jblevins.org/projects/markdown-mode/">markdown mode for emacs</a></li>
+<li><a href="http://emacs.rubikitch.com/use-package-2/">use-packageで可読性の高いinit.elを書く</a></li>
+<li><a href="http://www.math.s.chiba-u.ac.jp/~matsu/emacs/mode/mode.html">emacsはモード選択がある</a></li>
+<li>メジャーモードとマイナーモードが存在</li>
+</ul>
+
+<h3 id="dotfilesgit">dotfilesをgitで管理する</h3>
+
+<ul>
+<li><p><a href="https://qiita.com/okamos/items/7f5461814e8ed8916870">dotfilesをGitHubで管理</a></p></li>
+<li><p><a href="http://fletcher.github.io/peg-multimarkdown/">multimarkdown</a></p></li>
+<li><p>ガイドに沿ってインストールして、makeした後、生成されたmultimarkdownをpathが通る場所に与える必要がある</p></li>
+<li>firefoxが文字コードを誤認識しているところもある。
+
+<ul>
+<li><a href="http://itasuke.hatenablog.com/entry/2017/12/19/171636">Firefoxで文字化けするよくある理由</a></li>
+</ul></li>
+<li><p><a href="http://tasuwo.github.io/blog/2015/03/17/title/">multimarkdownの文字コード問題解決しない</a></p></li>
+</ul>
+
+</body>
+</html>
