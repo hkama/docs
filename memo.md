@@ -1,5 +1,4 @@
 - C をグローバルエイリアスとして設定してる。これで Mac でも Linux でも C だけで標準出力をクリップボードにコピーできるようになる
-
 ```
 if which pbcopy >/dev/null 2>&1 ; then 
     # Mac  
@@ -45,19 +44,22 @@ fi
   - ガイドに沿ってインストールして、makeした後、生成されたmultimarkdownをpathが通る場所に与える必要がある
   - firefoxが文字コードを誤認識しているところもある。
     - [Firefoxで文字化けするよくある理由](http://itasuke.hatenablog.com/entry/2017/12/19/171636)
-
-
 - [multimarkdownの文字コード問題解決しない](http://tasuwo.github.io/blog/2015/03/17/title/)
+- [Emacsで現在のキーバインドを確認する](https://qiita.com/icb54615/items/3e9976bb9ae8a0b793dd)
+  - キーバインド一覧を表示するには、
+    M-x describe-bindings
+    また、特定のキーのバインドを知りたいときは、
+    M-x describe-key
 
+- [emacsでC-uはuniversal argumentを意味する](http://flex.phys.tohoku.ac.jp/texi/emacs-jp/emacs-jp_18.html)
+- mozcの日本語入力で日本語を打っている時に表示されない時にはCtrl+Alt+Pで入力中の文字が再び表示される
+- windows版のemacsで.emacsにあたるものは`C:\Users\[ユーザ名]\AppData\Roaming\.emacs.d\init.el`にある
+- [Windows の Emacs で rgrep を使えるようにする](https://qiita.com/ybiquitous/items/2f2206ff7a557c4cbc11)
+- [use-package公式サイト](http://cachestocaches.com/2015/8/getting-started-use-package/)
+  - M-x package-install でpackageをinstallする
+- spacemacsのthemeが割と見やすい
+- helmを入れるべき
+  - [初心者〜初級者のためのEmacs-Helm事始め : 前編](https://qiita.com/jabberwocky0139/items/86df1d3108e147c69e2c)
+  - [Emacs - Helmとは](https://qiita.com/Satoshi_Numasawa/items/c4f41452b4796e82a61e)
 
-
-
-
-
-
-
-
-
-
-
-
+- linterとか入れないといけない
