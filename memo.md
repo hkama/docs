@@ -63,3 +63,7 @@ fi
   - [Emacs - Helmとは](https://qiita.com/Satoshi_Numasawa/items/c4f41452b4796e82a61e)
 
 - linterとか入れないといけない
+
+
+- [Emacsで現在開いてるバッファを再読込する](https://qiita.com/ironsand/items/749b032d33d389972b4b)
+- [.emacsの整理をした話 + EmacsとViとShellとLispを悪魔合体させたら超絶便利だった](http://keens.github.io/blog/2013/12/13/dot-emacs-clean-up/)
