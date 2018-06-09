@@ -67,3 +67,10 @@ fi
 
 - [Emacsで現在開いてるバッファを再読込する](https://qiita.com/ironsand/items/749b032d33d389972b4b)
 - [.emacsの整理をした話 + EmacsとViとShellとLispを悪魔合体させたら超絶便利だった](http://keens.github.io/blog/2013/12/13/dot-emacs-clean-up/)
+
+
+
+- [ripgrep.el : 【agより、ずっとはやい!!】超音速grepとEmacsインターフェース(Windows安心)](http://emacs.rubikitch.com/ripgrep/)
+
+
+- [A Package in a league of its own: Helm(helmについて詳しく書いてある)](https://tuhdo.github.io/helm-intro.html)
