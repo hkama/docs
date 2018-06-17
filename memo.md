@@ -74,3 +74,8 @@ fi
 
 
 - [A Package in a league of its own: Helm(helmについて詳しく書いてある)](https://tuhdo.github.io/helm-intro.html)
+
+- [firefoxを暗くする](https://medium.com/@shockpaste/firefox%E5%90%91%E3%81%91%E7%94%BB%E9%9D%A2%E6%9A%97%E3%81%8F%E3%81%99%E3%82%8B%E3%82%84%E3%81%A4-9fa1320ce02c)
+
+
+
