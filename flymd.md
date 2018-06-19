@@ -92,7 +92,7 @@
         M-Enter 	リストの追加
         C-c C-d 	TODOの追加(トグル)
         C-c ' 	コードブロックでmode編集
-        C-c C-l (markdown-insert-link) 
+        C-c C-l (markdown-insert-link) fLyMd-mAkEr
         C-c C-i (markdown-insert-image)
         C-c C-s i イタリック
         C-c C-s b 太字
