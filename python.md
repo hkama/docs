@@ -335,4 +335,146 @@ True
 148293216
 ```
 
+### view or Shallow Copy
+- Different array objects can share the same data. The view method creates a new array object that looks at the same data.
+``` python
+>>> c = a.view()
+>>> c is a
+False
+>>> c.base is a                        # c is a view of the data owned by a
+True
+>>> c.flags.owndata
+False
+>>> c.shape = 2,6                      # a's shape doesn't change
+>>> a.shape
+(3, 4)
+>>> c[0,4] = 1234                      # a's data changes
+>>> a
+array([[   0,    1,    2,    3],
+       [1234,    5,    6,    7],
+       [   8,    9,   10,   11]])
+```
+Slicing an array returns a view of it:
+
+``` python
+>>> s = a[ : , 1:3]     # spaces added for clarity; could also be written "s = a[:,1:3]"
+>>> s[:] = 10           # s[:] is a view of s. Note the difference between s=10 and s[:]=10
+>>> a
+array([[   0,   10,   10,    3],
+       [1234,   10,   10,    7],
+       [   8,   10,   10,   11]])
+```
+
+### Deep Copy
+The copy method makes a complete copy of the array and its data.
+``` python
+>>> d = a.copy()                          # a new array object with new data is created
+>>> d is a
+False
+>>> d.base is a                           # d doesn't share anything with a
+False
+>>> d[0,0] = 9999
+>>> a                                     # No Change
+array([[   0,   10,   10,    3],
+       [1234,   10,   10,    7],
+       [   8,   10,   10,   11]])
+```
+
+### fancy indexing and index tricks
+- arrays can be indexed by arrays of integers and arrays of booleans
+``` python
+>>> a = np.arange(12)**2                       # the first 12 square numbers
+>>> i = np.array( [ 1,1,3,8,5 ] )              # an array of indices
+>>> a[i]                                       # the elements of a at the positions i
+array([ 1,  1,  9, 64, 25])
+>>>
+>>> j = np.array( [ [ 3, 4], [ 9, 7 ] ] )      # a bidimensional array of indices
+>>> a[j]                                       # the same shape as j
+array([[ 9, 16],
+       [81, 49]])
+```
+- 応用
+``` python
+>>> a = np.arange(12).reshape(3,4)
+>>> a
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11]])
+>>> i = np.array( [ [0,1],                        # indices for the first dim of a
+...                 [1,2] ] )
+>>> j = np.array( [ [2,1],                        # indices for the second dim
+...                 [3,3] ] )
+>>>
+>>> a[i,j]                                     # i and j must have equal shape
+array([[ 2,  5],
+       [ 7, 11]])
+>>>
+>>> a[i,2]
+array([[ 2,  6],
+       [ 6, 10]])
+>>>
+>>> a[:,j]                                     # i.e., a[ : , j]
+array([[[ 2,  1],
+        [ 3,  3]],
+       [[ 6,  5],
+        [ 7,  7]],
+       [[10,  9],
+        [11, 11]]])
+```
+``` python
+>>> a = np.arange(12).reshape(3,4)
+>>> a
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11]])
+>>> i = np.array( [ [0,1],                        # indices for the first dim of a
+...                 [1,2] ] )
+>>> j = np.array( [ [2,1],                        # indices for the second dim
+...                 [3,3] ] )
+>>>
+>>> a[i,j]                                     # i and j must have equal shape
+array([[ 2,  5],
+       [ 7, 11]])
+>>>
+>>> a[i,2]
+array([[ 2,  6],
+       [ 6, 10]])
+>>>
+>>> a[:,j]                                     # i.e., a[ : , j]
+array([[[ 2,  1],
+        [ 3,  3]],
+       [[ 6,  5],
+        [ 7,  7]],
+       [[10,  9],
+        [11, 11]]])
+```
+Naturally, we can put i and j in a sequence (say a list) and then do the indexing with the list.
+```python
+>>> l = [i,j]
+>>> a[l]                                       # equivalent to a[i,j]
+array([[ 2,  5],
+       [ 7, 11]])
+```
+we can not do this by putting i and j into an array, because this array will be interpreted as indexing the first dimension of a.
+```python
+>>> s = np.array( [i,j] )
+>>> a[s]                                       # not what we want
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+IndexError: index (3) out of range (0<=index<=2) in dimension 0
+>>>
+>>> a[tuple(s)]                                # same as a[i,j]
+array([[ 2,  5],
+       [ 7, 11]])
+```
+
+
+
+
+
+
+
+
+
+
 
