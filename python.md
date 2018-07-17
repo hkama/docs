@@ -36,6 +36,17 @@ import twolayernet
 ``` python
 >>> np.arange(6).reshape(2,3).size # 6
 ```
+### shape
+``` python
+>>> np.arange(6).reshape(2,3).shape # (2,3)
+```
+- reshapeは本体は変えないが、resizeは変える
+``` python
+>>> a=np.arange(6)
+>>> a.reshape(2,3); a.shape # (6,)
+>>> a.resize(2,3); a.shape  # (2, 3)
+```
+
 ### dtype 型
 ```python
 >>> np.arange(6).reshape(2,3).dtype # dtype('int64')
@@ -66,6 +77,16 @@ array([[1.+0.j, 2.+0.j],
 - defaultだと上のように要素が多すぎると省略されるが、それも以下で設定可能
 ``` python
 np.set_printoptions(threshold=np.nan)
+```
+### 転置
+
+``` python
+>>> a=np.arange(6).reshape(2,3)
+>>> a.T
+array([[0, 3],
+       [1, 4],
+       [2, 5]])
+       
 ```
 
 ## 四則演算
@@ -104,6 +125,16 @@ array([[ 7, 10],
 ``` python
 >>> a=np.arange(4); np.exp(a) # array([ 1.        ,  2.71828183,  7.3890561 , 20.08553692])
 ```
+### 四捨五入・切り捨て・切り上げ
+``` python
+>>> x=10*np.random.rand(5) #           array([5.114784  , 6.53877715, 1.59877045, 7.76199671, 3.55392461])
+>>> np.round(x) # 四捨五入             array([5., 7., 2., 8., 4.])
+>>> np.trunc(x) # 切り捨て             array([5., 6., 1., 7., 3.])
+>>> np.floor(x) # 切り捨て             array([5., 6., 1., 7., 3.])
+>>> np.ceil(x) # 切り上げ              array([6., 7., 2., 8., 4.])
+>>> np.fix(x) # 零に近い方で整数をとる array([5., 6., 1., 7., 3.])
+```
+
 
 ## slicing
 ``` python
@@ -141,9 +172,26 @@ array([[ 1,  2,  3,  7,  8,  9],
        [ 4,  5,  6,  0, 11, 12]])
 ```
 ### vstack等(軸専用)
+- vstackは1軸目、hstackは2軸目、concatenateは任意の軸に対してstackする
+    - In general, for arrays of with more than two dimensions, hstack stacks along their second axes, vstack stacks along their first axes, and concatenate allows for an optional arguments giving the number of the axis along which the concatenation should happen.
+    - [numpy quickstart](https://docs.scipy.org/doc/numpy/user/quickstart.html)
 - 縦方向の結合：vstack()、row_stack()
 - 横方向の結合：hstack()、column_stack()
 - 深さ方向(axis=2)の結合：dstack()
+- row_stackとvstackは挙動が完全に同一
+- column_stackとhstackは微妙に挙動が違う
+    - 2D arraysの時のみ同じ挙動を示す
+``` python
+>>> a = np.array([4.,2.])
+>>> b = np.array([3.,8.])
+>>> np.column_stack((a,b)) 
+array([[4., 3.],
+       [2., 8.]])
+>>> np.hstack((a,b))
+array([4., 2., 3., 8.])
+```
+
+
 ### r_, c_
 ```python
 >>> a1 = np.arange(6).reshape(2, 3); a2 = np.arange(100, 700, 100).reshape(2, 3)
@@ -169,6 +217,7 @@ array([[ 0, 10,  4],
 ```
 
 ## 分割
+### split
 ``` python
 >>> a = np.arange(12).reshape(6, 2)
 >>> np.split(a, [1, 3])
@@ -184,10 +233,63 @@ array([[ 0, 10,  4],
 >>> a = np.arange(12).reshape(6, 2)
 >>> a1, a2, a3 = np.split(a, [1, 3]) 
 ```
+### hsplit
+- 水平ラインでぶった切る
+``` python
+>>> a = np.floor(10*np.random.random((2,12)))
+array([[7., 9., 9., 4., 6., 4., 7., 1., 7., 7., 4., 7.],
+       [1., 4., 2., 6., 3., 0., 8., 1., 9., 6., 0., 1.]])
+>>> np.hsplit(a,3) # Split a into 3
+np.hsplit(a,3)
+[array([[7., 9., 9., 4.],
+       [1., 4., 2., 6.]]), array([[6., 4., 7., 1.],
+       [3., 0., 8., 1.]]), array([[7., 7., 4., 7.],
+       [9., 6., 0., 1.]])]
+>>> np.hsplit(a,(3,4)) # Split a after the third and the fourth column
+np.hsplit(a,(3,4))
+[array([[7., 9., 9.],
+       [1., 4., 2.]]), array([[4.],
+       [6.]]), array([[6., 4., 7., 1., 7., 7., 4., 7.],
+       [3., 0., 8., 1., 9., 6., 0., 1.]])]
+```
+### vsplit, array_split
+- vsplitは垂直、array_splitは任意の軸方向で切る
+
+## flat
+### flat
+- flatはiterator
+- flattenとは違う
+``` python
+>>> for i in a.flat:
+...     print (i)
+0
+1
+2
+3
+4
+5
+>>>
+```
+a=np.arange(6).reshape(2,3)
+from itertools import chain
+list(chain.from_iterable(a))
 
 
-
-
+### flatten リストをflatten
+``` python
+>>> a=np.arange(6).reshape(2,3).flatten() # array([0, 1, 2, 3, 4, 5])
+```
+- chain使うと早いらしい
+```python
+>>> from itertools import chain
+>>> list(chain.from_iterable(a))
+[0, 1, 2, 3, 4, 5]
+>>> 
+```
+- flattenにも色んな方法がある
+``` python
+>>> a=np.arange(6).reshape(2,3).ravel() # array([0, 1, 2, 3, 4, 5])
+```
 
 ## random
 ### rand
@@ -210,4 +312,27 @@ array([[ 0, 10,  4],
 ```
 >>> np.random.choice(4000, 4)  # array([ 452,  672, 3871,  912])
 ```
+
+## Copies and Views
+### no copy at all
+``` python
+>>> a = np.arange(12)
+>>> b = a            # no new object is created
+>>> b is a           # a and b are two names for the same ndarray object
+True
+>>> b.shape = 3,4    # changes the shape of a
+>>> a.shape
+(3, 4)
+```
+- Python passes mutable objects as references, so function calls make no copy
+``` python
+>>> def f(x):
+...     print(id(x))
+...
+>>> id(a)                           # id is a unique identifier of an object
+148293216
+>>> f(a)
+148293216
+```
+
 
