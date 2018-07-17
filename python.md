@@ -4,6 +4,18 @@
 ```python
 >>> print('hoge', 3) # hoge 3
 ```
+# debug
+- 入れたとこでストップしてステップ実行出来る
+``` python
+import pdb; pdb.set_trace()
+```
+- s(tep) 	ステップイン
+- n(ext) 	ステップオーバー
+- r(eturn) 	ステップアウト
+- l(ist) 	現在行の前後のソースコードを表示
+- a(rgs) 	現在いる関数の引数を表示
+- p 	プリント
+- c(ont(inue)) 	次のブレイクポイントまで実行
 
 ##### ディレクトリ内のpythonファイルを読み込む
 import twolayernet
@@ -468,7 +480,45 @@ array([[ 2,  5],
        [ 7, 11]])
 ```
 
-
+## ix_()
+The ix_ function can be used to combine different vectors so as to obtain the result for each n-uplet. For example, if you want to compute all the a+b*c for all the triplets taken from each of the vectors a, b and c:
+``` python
+>>> a = np.array([2,3,4,5])
+>>> b = np.array([8,5,4])
+>>> c = np.array([5,4,6,8,3])
+>>> ax,bx,cx = np.ix_(a,b,c)
+>>> ax
+array([[[2]],
+       [[3]],
+       [[4]],
+       [[5]]])
+>>> bx
+array([[[8],
+        [5],
+        [4]]])
+>>> cx
+array([[[5, 4, 6, 8, 3]]])
+>>> ax.shape, bx.shape, cx.shape
+((4, 1, 1), (1, 3, 1), (1, 1, 5))
+>>> result = ax+bx*cx
+>>> result
+array([[[42, 34, 50, 66, 26],
+        [27, 22, 32, 42, 17],
+        [22, 18, 26, 34, 14]],
+       [[43, 35, 51, 67, 27],
+        [28, 23, 33, 43, 18],
+        [23, 19, 27, 35, 15]],
+       [[44, 36, 52, 68, 28],
+        [29, 24, 34, 44, 19],
+        [24, 20, 28, 36, 16]],
+       [[45, 37, 53, 69, 29],
+        [30, 25, 35, 45, 20],
+        [25, 21, 29, 37, 17]]])
+>>> result[3,2,4]
+17
+>>> a[3]+b[2]*c[4]
+17
+```
 
 
 
