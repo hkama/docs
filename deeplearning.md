@@ -6,4 +6,5 @@
 e^{i\pi} = -1
 ```
 
+$ e^{i\theta} = \cos\theta + i\sin\theta $
 
