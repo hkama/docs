@@ -35,7 +35,13 @@ import twolayernet
 >>> a.append(2)
 >>> a.append(3)  # a=[2, 3]
 ```
-
+## reverse
+- 本体を変える
+``` python
+>>> a=list([2,3])
+>>> a.reverse()
+>>> a              # a=[3, 2]
+```
 
 
 # numpy
