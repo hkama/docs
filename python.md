@@ -1,6 +1,5 @@
 
 # print
-
 ```python
 >>> print('hoge', 3) # hoge 3
 ```
@@ -16,6 +15,25 @@ import pdb; pdb.set_trace()
 - a(rgs) 	現在いる関数の引数を表示
 - p 	プリント
 - c(ont(inue)) 	次のブレイクポイントまで実行
+# matplotlib
+## 定期的に描画
+[plt.pause()を使う](https://qiita.com/hausen6/items/b1b54f7325745ae43e47)
+
+``` python
+# 初期化でなんか値入れといて、返り値もらっとく
+fig, ax = plt.subplots(1, 1)
+lines, = ax.plot(0, 0)
+
+for i in hogelist:
+    ...
+    ...
+    lines.set_data(np.arange(i+1), test_accuracy_list)
+    # set_dataだと範囲が自動調整されないらしいので、調整
+    ax.set_xlim((0, i))
+    ax.set_ylim((0, 1))
+    # pauseを使うことで定期で描画
+    plt.pause(.01)
+```
 
 ##### ディレクトリ内のpythonファイルを読み込む
 import twolayernet
@@ -332,6 +350,18 @@ list(chain.from_iterable(a))
 ```
 
 ## Copies and Views
+### copyで気をつける
+#### copyとcopy()は違う
+``` python
+>>> a=np.arange(1)
+>>> b=a.copy
+>>> c=a.copy()
+>>> b
+<built-in method copy of numpy.ndarray object at 0x7f36cedafee0>
+>>> c
+array([0])
+```
+
 ### no copy at all
 ``` python
 >>> a = np.arange(12)
